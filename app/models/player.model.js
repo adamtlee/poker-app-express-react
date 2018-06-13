@@ -5,7 +5,7 @@ const players = [
   { id: 2, firstName: 'Vanessa', lastName: 'bach', winning: '563', country: 'Bolivia' },
   { id: 3, firstName: 'Tom', lastName: 'Herf', winning: '200', country: 'France' }
 ]
-let currentID = 4;
+
 
 const getPlayers = (req, res) => {
   // some mongo call to get all players
@@ -61,10 +61,15 @@ const editPlayer = (req, res) => {
   ))
 
   if (foundPlayer) {
-    foundPlayer.firstName = req.body.firstName,
-    foundPlayer.lastName =  req.body.lastName, 
-    foundPlayer.winning = req.body.winning,
-    foundPlayer.country = req.body.country
+    if(req.body.firstName){
+      foundPlayer.firstName = req.body.firstName
+    } if (req.body.lastName){
+      foundPlayer.lastName =  req.body.lastName
+    } if (req.body.winning){
+      foundPlayer.winning = req.body.winning
+    } if (req.body.country){
+      foundPlayer.country = req.body.country
+    }
     res.json(foundPlayer);
   }else {
     return res.status(400).send({
@@ -73,6 +78,8 @@ const editPlayer = (req, res) => {
   }
 }
 
+// Delete Player
+// Todo
 
 
 router.get('/:id', getPlayer);

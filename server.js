@@ -1,7 +1,7 @@
 'use strict';
 // Node modules
 const bodyParser = require('body-parser'),
-  express = require('express');
+    express = require('express');
 
 const app = express();
 const port = (process.env.PORT || 3000);
