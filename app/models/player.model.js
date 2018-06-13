@@ -16,6 +16,7 @@ const getPlayers = (req, res) => {
   return res.json(players);
 }
 
+// Create a New Player
 const createPlayer = (req, res) => {
   // some mongo call to get all players
   let newPlayer = req.body;
@@ -29,6 +30,7 @@ const createPlayer = (req, res) => {
   return res.sendStatus(201);
 }
 
+// Display a player
 const getPlayer = (req, res) => {
   let id = req.params.id;
   id = Number.parseInt(id);
@@ -48,29 +50,35 @@ const getPlayer = (req, res) => {
 }
 
 // Edit player method
-// const editPlayer = (req, res) => {
-//   let id = req.params.id;
-//   id = Number.parseInt(id);
+const editPlayer = (req, res) => {
+  let id = req.params.id;
+  id = Number.parseInt(id);
 
-//   const foundPlayer = players.find((
-//     player => {
-//       return player.id === id;
-//     }
-//   ))
+  const foundPlayer = players.find((
+    player => {
+       return player.id === id
+    }
+  ))
 
-//   if (foundPlayer) {
-    
-//   } else {
-//     return res.sendStatus(404)
-//   }
-// }
+  if (foundPlayer) {
+    foundPlayer.firstName = req.body.firstName,
+    foundPlayer.lastName =  req.body.lastName, 
+    foundPlayer.winning = req.body.winning,
+    foundPlayer.country = req.body.country
+    res.json(foundPlayer);
+  }else {
+    return res.status(400).send({
+      message: "content cannot be empty"
+    });
+  }
+}
 
 
 
 router.get('/:id', getPlayer);
 router.get('/', getPlayers);
 router.post('/', createPlayer);
-// router.put('/:id', editPlayer);
+router.patch('/:id', editPlayer); 
 // router.delete('/:id', deletePlayer);
 
 

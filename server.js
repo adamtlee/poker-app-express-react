@@ -17,5 +17,5 @@ let playerRoute2 = require('./app/models/player.model');
 app.use('/player', playerRoute);
 
 app.listen(port, () => {
-  console.log('player app runnung')
+  console.log('player app running')
 });
