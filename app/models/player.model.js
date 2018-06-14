@@ -1,7 +1,7 @@
 
 const router = require('express').Router();
 const players = [
-  { id: 1, firstName: 'Anthony', lastName: 'Romo', winning: '324', country: 'Brazil' },
+  { id: 1, firstName: 'Anthony', lastName: 'Romo', winning: '324', country: 'Brazil', companyId: 123323 },
   { id: 2, firstName: 'Vanessa', lastName: 'bach', winning: '563', country: 'Bolivia' },
   { id: 3, firstName: 'Tom', lastName: 'Herf', winning: '200', country: 'France' }
 ]
@@ -78,15 +78,33 @@ const editPlayer = (req, res) => {
   }
 }
 
-// Delete Player
-// Todo
+// delete function attempt 2
+const deletePlayer = (req, res ) => {
+  // search for the ID
+  let id = req.params.id;
+  // Return it as an int value
+  id = Number.parseInt(id);
+
+  // 
+  const foundPlayer = players.find((
+    player => {
+      return player.id === id;
+    }
+  ))
+  console.log(players.indexOf(foundPlayer));
+  if (foundPlayer) {
+    players.splice(players.indexOf(foundPlayer), 1);
+    res.sendStatus(204); 
+  } else {
+    res.sendStatus(404);
+  }
+
+}
 
 
 router.get('/:id', getPlayer);
 router.get('/', getPlayers);
 router.post('/', createPlayer);
 router.patch('/:id', editPlayer); 
-// router.delete('/:id', deletePlayer);
-
-
+router.delete('/:id', deletePlayer);
 module.exports = router;
