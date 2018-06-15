@@ -1,7 +1,7 @@
 
 const router = require('express').Router();
 const players = [
-  { id: 1, firstName: 'Anthony', lastName: 'Romo', winning: '324', country: 'Brazil', companyId: 123323 },
+  { id: 1, firstName: 'Anthony', lastName: 'Romo', winning: '324', country: 'Brazil' },
   { id: 2, firstName: 'Vanessa', lastName: 'bach', winning: '563', country: 'Bolivia' },
   { id: 3, firstName: 'Tom', lastName: 'Herf', winning: '200', country: 'France' }
 ]
