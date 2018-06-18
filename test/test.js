@@ -1,11 +1,12 @@
 var supertest = require("supertest"); 
 var should = require("should"); 
 
+let chai = require('chai'); 
+
 var server = supertest.agent("http://localhost:3000"); 
 
 // sample test suite
 describe("Unit Test", function(){
-
     // Retrieve Index of Players
     it("should return index page of players", function(done){
         server
@@ -18,11 +19,12 @@ describe("Unit Test", function(){
         });
     });
 
-    // Create a Player Test Case 
-    // TODO
-
     // Edit Player Test Case
-    // TODO
+    // it("Should update a player", function(done){
+    //     server
+    //     .patch("player/1")
+        
+    // });
 
 
     // Retrieve id of non existant player
@@ -58,4 +60,23 @@ describe("Unit Test", function(){
             done();
         });
     });
+
+     // Create a Player Test Case 
+     it('saves a new player', function( ){
+        server    
+        .post('/player')
+        .send({
+            id: 4,
+            firstName: 'bob', 
+            lastName: 'smith', 
+            winning: '42', 
+            country: 'Brazil'
+
+        })
+        .expect(201)
+        .end(function(err, res){
+            res.status.should.equal(201); 
+            done(); 
+        }); 
+    }); 
 }); 

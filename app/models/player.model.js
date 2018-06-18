@@ -20,9 +20,9 @@ const getPlayers = (req, res) => {
 const createPlayer = (req, res) => {
   // some mongo call to get all players
   let newPlayer = req.body;
-  newPlayer.id = currentID;
+  //newPlayer.id = currentID;
 
-  currentID++;
+  //currentID++;
   console.log(newPlayer)
   // insert player into db
   players.push(newPlayer);
