@@ -11,7 +11,7 @@ const getPlayers = (req, res) => {
   // some mongo call to get all players
   // const player = playerModel.getPlayerById(id)
 
-
+  console.log(getPlayers);
   // send the data back
   return res.json(players);
 }
@@ -39,9 +39,9 @@ const getPlayer = (req, res) => {
     player => {
       return player.id === id;
     }
-  ))
-
+  ))  
   if (foundPlayer) {
+    console.log(foundPlayer);
     return res.json(foundPlayer);
   } else {
     return res.sendStatus(404)
@@ -70,6 +70,7 @@ const editPlayer = (req, res) => {
     } if (req.body.country){
       foundPlayer.country = req.body.country
     }
+    console.log(foundPlayer);
     res.json(foundPlayer);
   }else {
     return res.status(400).send({
@@ -98,7 +99,6 @@ const deletePlayer = (req, res ) => {
   } else {
     res.sendStatus(404);
   }
-
 }
 
 

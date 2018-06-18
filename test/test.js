@@ -75,8 +75,25 @@ describe("Unit Test", function(){
         })
         .expect(201)
         .end(function(err, res){
-            res.status.should.equal(201); 
+            //res.status.should.equal(201); 
+            expect(res.statusCode).to.equal(201); 
+            expect('Location', '/player');
             done(); 
         }); 
     }); 
+
+    // Edit a user
+    it('Edits a user', function (){
+        server
+        .patch('/player/2')
+        .send({
+            firstName: 'patchy'
+        })
+        .expect(201)
+        .end(function(err, res){
+            expect(res.statusCode).to.equal(201); 
+            expect('Location', '/player'); 
+            done(); 
+        });
+    });
 }); 
