@@ -19,14 +19,6 @@ describe("Unit Test", function(){
         });
     });
 
-    // Edit Player Test Case
-    // it("Should update a player", function(done){
-    //     server
-    //     .patch("player/1")
-        
-    // });
-
-
     // Retrieve id of non existant player
     it("should return 404 status of not found of an invalid user id ", function(done){
         server 
@@ -73,6 +65,8 @@ describe("Unit Test", function(){
             country: 'Brazil'
 
         })
+
+        // Saves a Player Test Case (Cleaned)
         .expect(201)
         .end(function(err, res){
             //res.status.should.equal(201); 
@@ -95,5 +89,5 @@ describe("Unit Test", function(){
             expect('Location', '/player'); 
             done(); 
         });
-    });
+    });  
 }); 
