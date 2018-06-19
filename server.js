@@ -3,6 +3,8 @@
 const bodyParser = require('body-parser'),
     express = require('express');
 
+const ExpressJoi = require('express-joi-validator');
+const Joi = require('joi');
 const app = express();
 const port = (process.env.PORT || 3000);
 
@@ -12,7 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 let playerRoute = require('./app/models/player.model');
 
-let playerRoute2 = require('./app/models/player.model');
+
+//let playerRoute2 = require('./app/models/player.model');
 
 app.use('/player', playerRoute);
 

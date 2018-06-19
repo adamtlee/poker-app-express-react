@@ -8,5 +8,8 @@ describe("Index of Players", function(){
     it('Obtain the index of players', () => {
 
     }); 
+    it('Obtain the item of one Player', () => {
+
+    });
 
 }); 

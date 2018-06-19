@@ -18,16 +18,36 @@ const getPlayers = (req, res) => {
 
 // Create a New Player
 const createPlayer = (req, res) => {
-  // some mongo call to get all players
-  let newPlayer = req.body;
-  //newPlayer.id = currentID;
+  // Define Validation for player
+  const Joi = require('joi');
 
-  //currentID++;
-  console.log(newPlayer)
-  // insert player into db
-  players.push(newPlayer);
-  // send the data back
-  return res.sendStatus(201);
+  const data = req.body; 
+
+  const schema = Joi.object().keys({
+    firstName: Joi.string().required(), 
+    lastName: Joi.string().required(),
+    winning: Joi.number().required(), 
+    country: Joi.string().required(), 
+  }); 
+
+  // Validate request data agianst schema
+  Joi.validate(data, schema, (err, value) => {
+    const id = Math.ceil(Math.random() * 9999999); 
+
+    if (err) {
+      res.status(422).json({
+        status: 'error', 
+        message: 'Invalid data for request', 
+        data: data
+      }); 
+    } else {
+      res.json({
+        status: 'success', 
+        message: 'Player successfully created', 
+        data: Object.assign({id}, value)
+      }); 
+    }
+  }); 
 }
 
 // Display a player

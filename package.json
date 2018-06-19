@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
+    "express-joi-validator": "^2.0.0",
+    "joi": "^13.4.0",
     "mongoose": "^5.1.5"
   },
   "devDependencies": {
