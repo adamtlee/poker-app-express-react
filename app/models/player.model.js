@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const players = [
+var players = [
   { id: 1, firstName: 'Anthony', lastName: 'Romo', winning: '324', country: 'Brazil' },
   { id: 2, firstName: 'Vanessa', lastName: 'bach', winning: '563', country: 'Bolivia' },
   { id: 3, firstName: 'Tom', lastName: 'Herf', winning: '200', country: 'France' }
@@ -21,9 +21,10 @@ const createPlayer = (req, res) => {
   // Define Validation for player
   const Joi = require('joi');
 
-  const data = req.body; 
+  let data = req.body; 
 
   const schema = Joi.object().keys({
+    id: Joi.forbidden(),
     firstName: Joi.string().required(), 
     lastName: Joi.string().required(),
     winning: Joi.number().required(), 
@@ -41,13 +42,15 @@ const createPlayer = (req, res) => {
         data: data
       }); 
     } else {
-      res.json({
+      data = Object.assign({id}, value)
+      players.push(data)
+      res.status(201).json({
         status: 'success', 
         message: 'Player successfully created', 
-        data: Object.assign({id}, value)
+        data: data
       }); 
     }
-  }); 
+  });
 }
 
 // Display a player

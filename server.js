@@ -22,3 +22,5 @@ app.use('/player', playerRoute);
 app.listen(port, () => {
   console.log('player app running')
 });
+
+module.exports = app;
