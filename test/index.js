@@ -6,14 +6,6 @@ const mocha = new Mocha({
 
 const testFiles = [
   './post.js',
-//   'tests/api/cell.js',
-//   'tests/api/column.js',
-//   'tests/api/columnDropdownList.js',
-//   'tests/api/csv.js',
-//   'tests/api/json.js',
-//   'tests/api/rss.js',
-//   'tests/api/row',
-//   'tests/api/table.js'
 ];
 
 testFiles.forEach(e => {
