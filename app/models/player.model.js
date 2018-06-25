@@ -1,5 +1,7 @@
 
 const router = require('express').Router();
+
+// Seed
 var players = [
   { id: 1, firstName: 'Anthony', lastName: 'Romo', winning: '324', country: 'Brazil' },
   { id: 2, firstName: 'Vanessa', lastName: 'bach', winning: '563', country: 'Bolivia' },
@@ -36,17 +38,13 @@ const createPlayer = (req, res) => {
     const id = Math.ceil(Math.random() * 9999999); 
 
     if (err) {
-      res.status(422).json({
-        status: 'error', 
+      res.status(400).json({
         message: 'Invalid data for request', 
-        data: data
       }); 
     } else {
       data = Object.assign({id}, value)
       players.push(data)
       res.status(201).json({
-        status: 'success', 
-        message: 'Player successfully created', 
         data: data
       }); 
     }
@@ -93,10 +91,9 @@ const editPlayer = (req, res) => {
     } if (req.body.country){
       foundPlayer.country = req.body.country
     }
-    console.log(foundPlayer);
     res.json(foundPlayer);
   }else {
-    return res.status(400).send({
+    return res.status(404).send({
       message: "content cannot be empty"
     });
   }

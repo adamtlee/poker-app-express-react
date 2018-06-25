@@ -16,18 +16,12 @@ describe("GET players route", function(){
                     status, 
                     body
                 } = response
-                console.log(response)
+                //console.log(response.body, status)
                 status.should.eql(200)
+                body.should.an('array');
+                // body.length.not.equal(0);
+                //body[0].should.have.property.equal('firstName')
             })
-
-
-        // server
-        // .get('/player/')
-        // .expect("content-type", /json/)
-        // .end(function(err, res){
-        //     res.status.should.equal(200);
-        //     done(); 
-        // });
     }); 
 
     // Fail to retrieve id of non existant player
@@ -38,15 +32,8 @@ describe("GET players route", function(){
                     status, 
                     body
                 } = response
-                console.log(response)
                 status.should.eql(404)
             })
-        // server 
-        // .get("/player/a")
-        // .expect(404)
-        // .end(function(err, res){
-        //     res.status.should.equal(404); 
-        //     done(); 
     });
     
     // Retrieve id of a specified player 
@@ -57,18 +44,7 @@ describe("GET players route", function(){
                 status, 
                 body
             } = response
-            console.log(response)
-            status.should.eql(200)
-        
+            status.should.eql(200)   
         })
-       
-        // server 
-        // //.get("/player/" + player.id)
-        // .get("/player/3")
-        // .expect("content-type",/json/)
-        // .expect(200)
-        // .end(function(err,res){
-        //     res.status.should.equal(200); 
-        //     done(); 
-        });
+    });
 }); 

@@ -24,27 +24,8 @@ describe("POST players route", function(){
                     status,
                     body
                 } = response
-                console.log(response)
                 status.should.eql(201)
             })
-        // server    
-        // .post('/player')
-        // .send({
-        //     id: 4,
-        //     firstName: 'bob', 
-        //     lastName: 'smith', 
-        //     winning: '42', 
-        //     country: 'Brazil'
-        // })
-        // // Saves a Player Test Case
-        // .expect(201)
-        // .end(function(err, res){
-        //     console.log(res,'23232343242343242344')
-        //     res.status.should.equal(201); 
-        //     // expect(res.statusCode).to.equal(201); 
-        //     // expect('Location', '/player');
-        //     done(); 
-        // }); 
     });
 
     it('fails to post a new player due to missing field (lastName = null)', function(){
@@ -59,25 +40,8 @@ describe("POST players route", function(){
                     status, 
                     body
                 } = response
-                console.log(response)
-                status.should.eql(422)
+                status.should.eql(400)
             })
     })
-    
-    // it('posts an invalid user', function(){
-    //     server
-    //     .post('/player')
-    //     .send({
-    //        lastName: 'errorsmith',
-    //         winning: '49', 
-    //         country: 'USA' 
-    //     })
-    //     .expect(422)
-    //     .end(function(err, res){
-    //         expect(res.statusCode).to.equal(422); 
-    //         expect('Location', '/player'); 
-    //         done(); 
-    //     })
-    // })
 }); 
  

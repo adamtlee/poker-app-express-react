@@ -7,7 +7,6 @@ chai.should();
 var server = require('../server.js'); 
 var request = supertest(server); 
 
-//var server = supertest.agent("http://localhost:3000"); 
 describe("PATCH players route", function(){ 
     // Edit a user
     it('Edits a user', function (){
@@ -21,24 +20,12 @@ describe("PATCH players route", function(){
                 status, 
                 body
             } = response
-            console.log(response)
             status.should.eql(200)
         })
-        // server
-        // .patch('/player/2')
-        // .send({
-        //     firstName: 'patchy'
-        // })
-        // .expect(201)
-        // .end(function(err, res){
-        //     expect(res.statusCode).to.equal(201); 
-        //     expect('Location', '/player'); 
-        //     done(); 
-        // });
     });  
 
     it('Should fail to update a non-existing player', function(){
-        return request.patch('player/3')
+        return request.patch('/player/fd')
         .send({
             firstName: 'noPlayer',
             lastName: 'lastnoPlayer'
@@ -48,7 +35,6 @@ describe("PATCH players route", function(){
                 status, 
                 body
             } = response 
-            console.log(response)
             status.should.eql(404)
         })
     })
