@@ -46,6 +46,23 @@ describe("POST players route", function(){
         //     done(); 
         // }); 
     });
+
+    it('fails to post a new player due to missing field (lastName = null)', function(){
+        return request.post('/player')
+            .send({
+                firstName: 'failingPlayer',  
+                winning: '42', 
+                country: 'Brazil'
+            })
+            .then(response => {
+                var {
+                    status, 
+                    body
+                } = response
+                console.log(response)
+                status.should.eql(422)
+            })
+    })
     
     // it('posts an invalid user', function(){
     //     server
