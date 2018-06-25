@@ -22,6 +22,10 @@ describe("PATCH players route", function(){
             } = response
             status.should.eql(200)
         })
+        body[0].should.have.property('firstName').and.to.be.a('string');
+        body[0].should.have.property('lastName').and.to.be.a('string');
+        body[0].should.have.property('winning');
+        body[0].should.have.property('country').and.to.be.a('string'); 
     });  
 
     it('Retrieves previously Edited player 2', function(){
@@ -58,5 +62,6 @@ describe("PATCH players route", function(){
             } = response 
             status.should.eql(404)
         })
+        
     })
 });

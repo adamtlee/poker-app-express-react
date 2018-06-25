@@ -26,6 +26,10 @@ describe("POST players route", function(){
                 } = response
                 status.should.eql(201)
             })
+            body[0].should.have.property('firstName').and.to.be.a('string');
+            body[0].should.have.property('lastName').and.to.be.a('string');
+            body[0].should.have.property('winning');
+            body[0].should.have.property('country').and.to.be.a('string'); 
     });
 
     it('fails to post a new player due to missing field (lastName = null)', function(){
