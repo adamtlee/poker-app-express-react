@@ -6,8 +6,6 @@ chai.should();
 var server = require('../server.js');
 var request = supertest(server);
 
-//var server = supertest.agent("http://localhost:3000"); 
-
 describe("GET players route", function(){ 
     it('Should obtain the index of players', function(){
         return request.get('/player')
@@ -18,9 +16,15 @@ describe("GET players route", function(){
                 } = response
                 //console.log(response.body, status)
                 status.should.eql(200)
+                // Check that the body is an array
                 body.should.an('array');
-                // body.length.not.equal(0);
-                //body[0].should.have.property.equal('firstName')
+                // Check that the content is not null (0)
+                body.should.not.equal(0);
+                // Check that the property contains a first name that is a string value
+                body[0].should.have.property('firstName').and.to.be.a('string');
+                body[0].should.have.property('lastName').and.to.be.a('string');
+                body[0].should.have.property('winning');
+                body[0].should.have.property('country').and.to.be.a('string'); 
             })
     }); 
 
