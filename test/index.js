@@ -6,6 +6,9 @@ const mocha = new Mocha({
 
 const testFiles = [
   './post.js',
+  './get.js',
+  './patch.js',
+  './delete.js'
 ];
 
 testFiles.forEach(e => {
