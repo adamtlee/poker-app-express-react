@@ -12,7 +12,7 @@ const port = (process.env.PORT || 3000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let playerRoute = require('./app/models/player.model');
+let playerRoute = require('./project/models/player.model');
 
 
 //let playerRoute2 = require('./app/models/player.model');
