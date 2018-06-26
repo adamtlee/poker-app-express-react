@@ -121,10 +121,10 @@ const deletePlayer = (req, res ) => {
   }
 }
 
-
-router.get('/:id', getPlayer);
-router.get('/', getPlayers);
-router.post('/', createPlayer);
-router.patch('/:id', editPlayer); 
-router.delete('/:id', deletePlayer);
-module.exports = router;
+// Moved to player.routes.js
+// router.get('/:id', getPlayer);
+// router.get('/', getPlayers);
+// router.post('/', createPlayer);
+// router.patch('/:id', editPlayer); 
+// router.delete('/:id', deletePlayer);
+// module.exports = router;
