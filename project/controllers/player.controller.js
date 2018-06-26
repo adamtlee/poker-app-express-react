@@ -1,22 +1,46 @@
-var Player = require('../app/player.model'); 
+var Player = require('../models/player.model');
 
-exports.player_list = function(req, res){
-    // TODO
-};
+class PlayerController {
+    constructor() {
+        // need to initialize somerthing? do it here
+        // don't need to? don't worry then.
+    }
 
-exports.player_detail = function(req, res){
-    // TODO
-};
+    list() {
+        // TODO return all players
+    }
 
-exports.player_create = function(req, res){
-    // TODO
-};
+    /**
+     * get a player by id
+     * @param {Number} id 
+     */
+    get(id) {
+        // get player by id
+    }
 
-exports.player_edit = function(req, res){
-    // TODO
-};
+    /**
+     * Create a player 
+     * @param {Object} params the properties to set on the newly created player
+     */
+    create(params) {
 
-exports.player_delete = function(req, res){
-    // TODO
-};
+    }
 
+    /**
+     * 
+     * @param {*} playerId the id of the player to edit
+     * @param {*} params the properties to update on the player
+     */
+    edit(playerId, params) {
+
+    }
+    /**
+     * Delete a player
+     * @param {Number} playerId the id of the player to delete
+     */
+    delete(playerId) {
+
+    }
+}
+
+module.exports = PlayerController;
