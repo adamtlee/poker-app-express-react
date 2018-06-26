@@ -1,4 +1,4 @@
-var Player = require('../models/player.model'); 
+var Player = require('../app/player.model'); 
 
 exports.player_list = function(req, res){
     // TODO
