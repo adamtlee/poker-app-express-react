@@ -20,13 +20,22 @@ const getPlayerDetail = (req, res)=>{
 
     // get the id you need off of the request object --> 'req'
     // expressJS' documentation should help you here
-    const id = 5 // this is a placeholder, do it the right way here, hint: "req" dot what?
+    const id = req.params.id // this is a placeholder, do it the right way here, hint: "req" dot what?
+    id = Number.parseInt(id); 
 
     const foundPlayerDetail = await playerController.get(id);
+    player => {
+        return player.id === id; 
+    }
 
     // did you find a player? no? what should be sent back? "four what?" 401,409,??? --> what is the appropriate HTTP status code?
     // TODO return code if not found and proceed no further
-
+    if (foundPlayerDetail) {
+        console.log(foundPlayerDetail); 
+        return res.status(200).json(foundPlayerDetail); 
+    } else {
+        return res.sendStatus(404)
+    }
     // you found a player object? do you need to manipoulate the object in any way? yes/no?
     // maybe there is a property on the object that you don't want to return to the client
     // or maybe all of your response are of a certain format like { data: foundPlayerDetail}
