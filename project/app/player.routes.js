@@ -1,8 +1,8 @@
 // Requirements
-const express = require('express'); 
-const router = express.Router(); 
+const express = require('express');
+const router = express.Router();
 
-const PlayerController = require('../controllers/player.controller'); 
+const PlayerController = require('../controllers/player.controller');
 const playerController = new PlayerController();
 
 
@@ -15,35 +15,18 @@ const playerController = new PlayerController();
 *      Might you need to retrieve a player for another purpose? Perhaps checking a property or checking that it exists. 
 *      Maybe you do this at some point but don't immediately send an HTTP response?
 */
-const getPlayerDetail = (req, res)=>{
-    // WARNING PSEUDO-ISH CODE AHEAD
-
-    // get the id you need off of the request object --> 'req'
-    // expressJS' documentation should help you here
+const getPlayerDetail = (req, res) => {
     const id = req.params.id // this is a placeholder, do it the right way here, hint: "req" dot what?
-    id = Number.parseInt(id); 
+    id = Number.parseInt(id);
 
     const foundPlayerDetail = await playerController.get(id);
-    player => {
-        return player.id === id; 
-    }
 
-    // did you find a player? no? what should be sent back? "four what?" 401,409,??? --> what is the appropriate HTTP status code?
-    // TODO return code if not found and proceed no further
     if (foundPlayerDetail) {
-        console.log(foundPlayerDetail); 
-        return res.status(200).json(foundPlayerDetail); 
+        console.log(foundPlayerDetail);
+        return res.status(200).json(foundPlayerDetail);
     } else {
         return res.sendStatus(404)
     }
-    // you found a player object? do you need to manipoulate the object in any way? yes/no?
-    // maybe there is a property on the object that you don't want to return to the client
-    // or maybe all of your response are of a certain format like { data: foundPlayerDetail}
-    // TODO make any data manipulations you ant before sendin the object away
-
-    // TODO return the correct response code and body response
-    // example res.status(200).json(foundPlayerDetail)
-
 }
 
 router.get('/:id', getPlayerDetail);
