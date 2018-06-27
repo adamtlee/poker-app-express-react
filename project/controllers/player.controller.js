@@ -1,4 +1,4 @@
-var Player = require('../models/player.model');
+var playerModel = require('../models/player.model');
 
 class PlayerController {
     constructor() {
@@ -16,6 +16,11 @@ class PlayerController {
      */
     get(id) {
         // get player by id
+        let id = req.parms.id; 
+        id = Number.parseInt(id); 
+
+        return id;
+
     }
 
     /**
