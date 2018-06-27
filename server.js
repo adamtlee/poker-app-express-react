@@ -1,10 +1,7 @@
-'use strict';
 // Node modules
 const bodyParser = require('body-parser'),
     express = require('express');
 
-const ExpressJoi = require('express-joi-validator');
-const Joi = require('joi');
 const app = express();
 const port = (process.env.PORT || 3000);
 
@@ -12,10 +9,8 @@ const port = (process.env.PORT || 3000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let playerRoute = require('./project/models/player.model');
-
-
-//let playerRoute2 = require('./app/models/player.model');
+// routes
+const playerRoute = require('./project/app/player.routes');
 
 app.use('/player', playerRoute);
 
