@@ -1,5 +1,4 @@
-var playerModel = require('../models/player.model');
-
+const playerModel = require('../models/player.model');
 class PlayerController {
     constructor() {
         // need to initialize somerthing? do it here
@@ -7,20 +6,24 @@ class PlayerController {
     }
 
     list() {
-        // TODO return all players
+        // return all players
+        const players = playerModel.getPlayers();
+        return players; 
     }
 
     /**
      * get a player by id
      * @param {Number} id 
+     * @returns {Object} The player that was found or null
      */
     get(id) {
         // get player by id
-        let id = req.parms.id; 
-        id = Number.parseInt(id); 
 
-        return id;
+        // check that id is a number
 
+        const player = playerModel.getPlayer(id);
+
+        return player;
     }
 
     /**
@@ -39,6 +42,7 @@ class PlayerController {
     edit(playerId, params) {
 
     }
+
     /**
      * Delete a player
      * @param {Number} playerId the id of the player to delete

@@ -15,9 +15,22 @@ const playerController = new PlayerController();
 *      Might you need to retrieve a player for another purpose? Perhaps checking a property or checking that it exists. 
 *      Maybe you do this at some point but don't immediately send an HTTP response?
 */
+
+const getPlayers = (req, res) => {
+    const getPlayers = playerController.list(); 
+
+    if(getPlayers) {
+        return res.status(200).json(getPlayers); 
+    } else {
+        return res.status(200).json([]); 
+    }
+}
+
 const getPlayerDetail = (req, res) => {
-    const id = req.params.id;
+    let id = req.params.id;
     id = Number.parseInt(id);
+
+    const foundPlayerDetail = playerController.get(id);
 
     if (foundPlayerDetail) {
         console.log(foundPlayerDetail);
@@ -27,12 +40,12 @@ const getPlayerDetail = (req, res) => {
     }
 }
 
+router.get('/', getPlayers)
 router.get('/:id', getPlayerDetail);
 
 // TODO follow this pattern for the other routes!
 
 /*
-router.get('/', player_controller.player_list);
 router.post('/', player_controller.player_create);
 router.patch('/:id', player_controller.player_edit); 
 router.delete('/:id', player_controller.player_delete);
