@@ -16,6 +16,7 @@ const playerController = new PlayerController();
 *      Maybe you do this at some point but don't immediately send an HTTP response?
 */
 
+
 const getPlayers = (req, res) => {
     const getPlayers = playerController.list(); 
 
@@ -40,8 +41,34 @@ const getPlayerDetail = (req, res) => {
     }
 }
 
+const editPlayerDetails = (req, res) => { 
+    let id = req.params.id; 
+    id = Number.parseInt(id); 
+
+    const editPlayerDetails = playerController.edit(id); 
+
+    if(editPlayerDetails) {
+        if (req.body.firstName){
+            editPlayerDetails.firstName = req.body.firstName
+        } if (req.body.lastName) {
+            editPlayerDetails.lastName = req.body.lastName
+        } if (req.body.winning) {
+            editPlayerDetails.winning = req.body.winning
+        } if (req.body.country) {
+            editPlayerDetails.country = req.body.country   
+        }
+        res.status(200).json(editPlayerDetails);
+    } else {
+        return res.status(404).send({
+            message: "content can't be empty"
+        });
+    }
+}
+
+
 router.get('/', getPlayers)
 router.get('/:id', getPlayerDetail);
+router.patch('/:id', editPlayerDetails);
 
 // TODO follow this pattern for the other routes!
 

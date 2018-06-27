@@ -41,6 +41,10 @@ class PlayerController {
      */
     edit(playerId, params) {
 
+        const player = playerModel.editPlayer(playerId); 
+
+        return player;
+
     }
 
     /**

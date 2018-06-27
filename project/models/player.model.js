@@ -59,33 +59,35 @@ const getPlayer = (id) => {
 }
 
 // Edit player method
-const editPlayer = (req, res) => {
-  let id = req.params.id;
-  id = Number.parseInt(id);
+const editPlayer = (id) => {
+  // let id = req.params.id;
+  // id = Number.parseInt(id);
 
   const foundPlayer = players.find((
     player => {
       return player.id === id
     }
   ))
-
-  if (foundPlayer) {
-    if (req.body.firstName) {
-      foundPlayer.firstName = req.body.firstName
-    } if (req.body.lastName) {
-      foundPlayer.lastName = req.body.lastName
-    } if (req.body.winning) {
-      foundPlayer.winning = req.body.winning
-    } if (req.body.country) {
-      foundPlayer.country = req.body.country
-    }
-    res.json(foundPlayer);
-  } else {
-    return res.status(404).send({
-      message: "content cannot be empty"
-    });
-  }
+  return foundPlayer; 
 }
+
+//   if (foundPlayer) {
+//     if (req.body.firstName) {
+//       foundPlayer.firstName = req.body.firstName
+//     } if (req.body.lastName) {
+//       foundPlayer.lastName = req.body.lastName
+//     } if (req.body.winning) {
+//       foundPlayer.winning = req.body.winning
+//     } if (req.body.country) {
+//       foundPlayer.country = req.body.country
+//     }
+//     res.json(foundPlayer);
+//   } else {
+//     return res.status(404).send({
+//       message: "content cannot be empty"
+//     });
+//   }
+// }
 
 // delete function attempt 2
 const deletePlayer = (req, res) => {
@@ -109,4 +111,4 @@ const deletePlayer = (req, res) => {
   }
 }
 
-module.exports = { getPlayer, getPlayers };
+module.exports = { getPlayer, getPlayers, editPlayer };
