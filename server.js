@@ -12,13 +12,6 @@ const port = (process.env.PORT || 3000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let playerRoute = require('./project/models/player.model');
-
-
-//let playerRoute2 = require('./app/models/player.model');
-
-app.use('/player', playerRoute);
-
 app.listen(port, () => {
   console.log('player app running')
 });
