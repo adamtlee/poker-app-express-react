@@ -16,10 +16,8 @@ const playerController = new PlayerController();
 *      Maybe you do this at some point but don't immediately send an HTTP response?
 */
 const getPlayerDetail = (req, res) => {
-    const id = req.params.id // this is a placeholder, do it the right way here, hint: "req" dot what?
+    const id = req.params.id;
     id = Number.parseInt(id);
-
-    const foundPlayerDetail = await playerController.get(id);
 
     if (foundPlayerDetail) {
         console.log(foundPlayerDetail);
