@@ -30,6 +30,11 @@ class PlayerController {
      * @param {Object} params the properties to set on the newly created player
      */
     create(body) {
+        const player = playerModel.createPlayer(body); 
+
+        playerModel.createPlayer(body);
+
+        return player;
         
     }
 

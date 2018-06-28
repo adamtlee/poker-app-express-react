@@ -25,8 +25,8 @@ const playerController = new PlayerController();
 const createPlayer = (req, res) => {
     const createPlayer = playerController.create(); 
     if (createPlayer){
-        return res.status(201).json({
-            data = Object.assign({ id }, value)
+        return res.status(201).json({ 
+            message: 'success'
         }); 
     } else {
         return res.status(400).json({
@@ -93,11 +93,12 @@ const deletePlayer = (req, res) => {
 
 
 
-//router.post('/', createPlayer)
+router.post('/', createPlayer)
 router.get('/', getPlayers)
 router.get('/:id', getPlayerDetail);
 router.patch('/:id', editPlayerDetails);
 router.delete('/:id', deletePlayer);
+
 
 
 // TODO follow this pattern for the other routes!

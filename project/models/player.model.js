@@ -47,9 +47,6 @@ const createPlayer = (req, res) => {
       data = Object.assign({ id }, value)
       // push the player to the "fake db"
       players.push(data) 
-      res.status(201).json({
-        data: data
-      });
     }
   });
 }
@@ -110,7 +107,8 @@ const deletePlayer = (playerId, player) => {
   if (foundPlayer){
     players.splice(players.indexOf(foundPlayer), 1);
   } 
+  return player;
 }
 //}
 
-module.exports = { getPlayer, getPlayers, editPlayer, deletePlayer };
+module.exports = { getPlayer, getPlayers, editPlayer, deletePlayer, createPlayer};
