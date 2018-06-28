@@ -16,17 +16,22 @@ const playerController = new PlayerController();
 *      Maybe you do this at some point but don't immediately send an HTTP response?
 */
 
+// const createPlayer = (req, res) => {
 
+// }
+
+// Get the index of players
 const getPlayers = (req, res) => {
-    const getPlayers = playerController.list(); 
+    const getPlayers = playerController.list();
 
-    if(getPlayers) {
-        return res.status(200).json(getPlayers); 
+    if (getPlayers) {
+        return res.status(200).json(getPlayers);
     } else {
-        return res.status(200).json([]); 
+        return res.status(200).json([]);
     }
 }
 
+// Get the details of a single player 
 const getPlayerDetail = (req, res) => {
     let id = req.params.id;
     id = Number.parseInt(id);
@@ -34,41 +39,51 @@ const getPlayerDetail = (req, res) => {
     const foundPlayerDetail = playerController.get(id);
 
     if (foundPlayerDetail) {
-        console.log(foundPlayerDetail);
         return res.status(200).json(foundPlayerDetail);
     } else {
         return res.sendStatus(404)
     }
 }
 
-const editPlayerDetails = (req, res) => { 
-    let id = req.params.id; 
-    id = Number.parseInt(id); 
+// Edit the Details of a player 
+const editPlayerDetails = (req, res) => {
+    let id = req.params.id;
+    id = Number.parseInt(id);
+    let body = req.body
 
-    const editPlayerDetails = playerController.edit(id); 
+    const playerResp = playerController.edit(id, body);
 
-    if(editPlayerDetails) {
-        if (req.body.firstName){
-            editPlayerDetails.firstName = req.body.firstName
-        } if (req.body.lastName) {
-            editPlayerDetails.lastName = req.body.lastName
-        } if (req.body.winning) {
-            editPlayerDetails.winning = req.body.winning
-        } if (req.body.country) {
-            editPlayerDetails.country = req.body.country   
-        }
-        res.status(200).json(editPlayerDetails);
-    } else {
+    // did playerResponse fail get player if so respond with 
+    if(playerResp === false) {
         return res.status(404).send({
             message: "content can't be empty"
-        });
+       });   
+    }
+    res.status(200).json(playerResp);
+}
+
+// Delete a player
+const deletePlayer = (req, res) => {
+    let id = req.params.id;
+    id = Number.parseInt(id);
+
+    const deletePlayerFound = playerController.delete(id);
+    if (deletePlayerFound === true) {
+        //deletePlayerFound.splice(deletePlayerFound.indexOf(), 1);
+        res.sendStatus(204);
+    } else {
+        res.sendStatus(404);
     }
 }
 
 
+
+//router.post('/', createPlayer)
 router.get('/', getPlayers)
 router.get('/:id', getPlayerDetail);
 router.patch('/:id', editPlayerDetails);
+router.delete('/:id', deletePlayer);
+
 
 // TODO follow this pattern for the other routes!
 

@@ -8,7 +8,7 @@ class PlayerController {
     list() {
         // return all players
         const players = playerModel.getPlayers();
-        return players; 
+        return players;
     }
 
     /**
@@ -20,7 +20,6 @@ class PlayerController {
         // get player by id
 
         // check that id is a number
-
         const player = playerModel.getPlayer(id);
 
         return player;
@@ -39,9 +38,26 @@ class PlayerController {
      * @param {*} playerId the id of the player to edit
      * @param {*} params the properties to update on the player
      */
-    edit(playerId, params) {
+    edit(playerId, body) {
 
-        const player = playerModel.editPlayer(playerId); 
+        const player = playerModel.getPlayer(playerId);
+
+        // player not found
+        // return something that identifies this 
+
+        if (player) {
+            if (body.firstName) {
+                player.firstName = body.firstName
+            } if (body.lastName) {
+                player.lastName = body.lastName
+            } if (body.winning) {
+                player.winning = body.winning
+            } if (body.country) {
+                player.country = body.country
+            }
+        }
+
+        playerModel.editPlayer(playerId, player)
 
         return player;
 
@@ -51,8 +67,23 @@ class PlayerController {
      * Delete a player
      * @param {Number} playerId the id of the player to delete
      */
+    // In Progress
     delete(playerId) {
+        
+        const player = playerModel.deletePlayer(playerId); 
 
+        if (player){
+            player.splice(player.indexOf(playerId), 1);
+            return send ({
+                message: "successfully deleted player"
+            });
+        } else {
+            return send ({
+                message: "failed to delete player"
+            });
+            
+        }
+    
     }
 }
 

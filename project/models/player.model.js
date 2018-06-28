@@ -6,6 +6,9 @@ const players = [
   { id: 3, firstName: 'Tom', lastName: 'Herf', winning: '200', country: 'France' }
 ]
 
+/* 
+  This function returns all players from the array players
+*/
 const getPlayers = () => {
   return players;
 }
@@ -15,10 +18,13 @@ const createPlayer = (req, res) => {
   // Define Validation for player
   const Joi = require('joi');
 
+  // request the fields of the player 
   let data = req.body;
 
   const schema = Joi.object().keys({
+    // Id cannot be modified
     id: Joi.forbidden(),
+    // require that these fields can't be blank
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
     winning: Joi.number().required(),
@@ -27,15 +33,20 @@ const createPlayer = (req, res) => {
 
   // Validate request data agianst schema
   Joi.validate(data, schema, (err, value) => {
+    // assign a random int ID to the plaeyr
     const id = Math.ceil(Math.random() * 9999999);
 
     if (err) {
+      // If anything goes wrong send status 400 
       res.status(400).json({
+        // prompt the user with a message 
         message: 'Invalid data for request',
       });
     } else {
+      // Bind the randomly generated Id to the player
       data = Object.assign({ id }, value)
-      players.push(data)
+      // push the player to the "fake db"
+      players.push(data) 
       res.status(201).json({
         data: data
       });
@@ -49,26 +60,26 @@ const createPlayer = (req, res) => {
  * @returns {Object} The JSON version of the player
  */
 const getPlayer = (id) => {
-
+  // find the id of the player
   const foundPlayer = players.find((
     player => {
+      // Check to see if it is equal to the id we are looking for
       return player.id === id;
     }
   ))
+  // return that found player 
   return foundPlayer;
 }
 
 // Edit player method
-const editPlayer = (id) => {
-  // let id = req.params.id;
-  // id = Number.parseInt(id);
+const editPlayer = (playerId, player) => {
 
-  const foundPlayer = players.find((
+  let foundPlayer = players.find((
     player => {
-      return player.id === id
+      return player.id === playerId
     }
   ))
-  return foundPlayer; 
+  foundPlayer = player; 
 }
 
 //   if (foundPlayer) {
@@ -90,25 +101,14 @@ const editPlayer = (id) => {
 // }
 
 // delete function attempt 2
-const deletePlayer = (req, res) => {
-  // search for the ID
-  let id = req.params.id;
-  // Return it as an int value
-  id = Number.parseInt(id);
-
-  // 
-  const foundPlayer = players.find((
+const deletePlayer = (id) => {
+  let foundPlayer = players.find((
     player => {
       return player.id === id;
     }
   ))
-  console.log(players.indexOf(foundPlayer));
-  if (foundPlayer) {
-    players.splice(players.indexOf(foundPlayer), 1);
-    res.sendStatus(204);
-  } else {
-    res.sendStatus(404);
-  }
+  return foundPlayer; 
 }
+//}
 
-module.exports = { getPlayer, getPlayers, editPlayer };
+module.exports = { getPlayer, getPlayers, editPlayer, deletePlayer };
