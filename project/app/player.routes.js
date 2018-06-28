@@ -62,13 +62,13 @@ const editPlayerDetails = (req, res) => {
     res.status(200).json(playerResp);
 }
 
-// Delete a player
+// Delete a player (In Progress)
 const deletePlayer = (req, res) => {
     let id = req.params.id;
     id = Number.parseInt(id);
 
-    const deletePlayerFound = playerController.delete(id);
-    if (deletePlayerFound === true) {
+    const deletePlayerResp = playerController.delete(id);
+    if (deletePlayerResp === false) {
         //deletePlayerFound.splice(deletePlayerFound.indexOf(), 1);
         res.sendStatus(204);
     } else {

@@ -29,8 +29,8 @@ class PlayerController {
      * Create a player 
      * @param {Object} params the properties to set on the newly created player
      */
-    create(params) {
-
+    create(body) {
+        
     }
 
     /**
@@ -72,17 +72,7 @@ class PlayerController {
         
         const player = playerModel.deletePlayer(playerId); 
 
-        if (player){
-            player.splice(player.indexOf(playerId), 1);
-            return send ({
-                message: "successfully deleted player"
-            });
-        } else {
-            return send ({
-                message: "failed to delete player"
-            });
-            
-        }
+        playerModel.deletePlayer(playerId)
     
     }
 }

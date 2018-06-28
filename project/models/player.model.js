@@ -101,13 +101,15 @@ const editPlayer = (playerId, player) => {
 // }
 
 // delete function attempt 2
-const deletePlayer = (id) => {
+const deletePlayer = (playerId, player) => {
   let foundPlayer = players.find((
     player => {
-      return player.id === id;
+      return player.id === playerId;
     }
   ))
-  return foundPlayer; 
+  if (foundPlayer){
+    players.splice(players.indexOf(foundPlayer), 1);
+  } 
 }
 //}
 
