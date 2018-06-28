@@ -20,6 +20,21 @@ const playerController = new PlayerController();
 
 // }
 
+// Create a Player
+// in progress
+const createPlayer = (req, res) => {
+    const createPlayer = playerController.create(); 
+    if (createPlayer){
+        return res.status(201).json({
+            data = Object.assign({ id }, value)
+        }); 
+    } else {
+        return res.status(400).json({
+            message: 'Invalid data for request'
+        });
+    }
+}
+
 // Get the index of players
 const getPlayers = (req, res) => {
     const getPlayers = playerController.list();
