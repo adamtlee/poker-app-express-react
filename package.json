@@ -9,6 +9,7 @@
   "author": "Adam",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.266.1",
     "express": "^4.16.3",
     "express-joi-validator": "^2.0.0",
     "joi": "^13.4.0",
