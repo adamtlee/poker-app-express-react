@@ -23,11 +23,10 @@ const playerController = new PlayerController();
 // Create a Player
 // in progress
 const createPlayer = (req, res) => {
-    const createPlayer = playerController.create(); 
-    if (createPlayer){
-        return res.status(201).json({ 
-            message: 'success'
-        }); 
+    var body = req.body;
+    const createPlayer = playerController.create(body);
+    if (createPlayer) {
+        return res.status(201).json(createPlayer);
     } else {
         return res.status(400).json({
             message: 'Invalid data for request'
@@ -69,26 +68,24 @@ const editPlayerDetails = (req, res) => {
     const playerResp = playerController.edit(id, body);
 
     // did playerResponse fail get player if so respond with 
-    if(playerResp === false) {
+    if (playerResp === false) {
         return res.status(404).send({
             message: "content can't be empty"
-       });   
+        });
     }
     res.status(200).json(playerResp);
 }
 
 // Delete a player (In Progress)
 const deletePlayer = (req, res) => {
+    
     let id = req.params.id;
     id = Number.parseInt(id);
 
-    const deletePlayerResp = playerController.delete(id);
-    if (deletePlayerResp === false) {
-        //deletePlayerFound.splice(deletePlayerFound.indexOf(), 1);
-        res.sendStatus(204);
-    } else {
-        res.sendStatus(404);
-    }
+    playerController.delete(id);
+
+    res.sendStatus(204);
+
 }
 
 

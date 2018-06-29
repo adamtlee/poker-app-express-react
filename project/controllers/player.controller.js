@@ -1,4 +1,8 @@
 const playerModel = require('../models/player.model');
+
+// Define Validation for player
+const Joi = require('joi');
+
 class PlayerController {
     constructor() {
         // need to initialize somerthing? do it here
@@ -30,12 +34,34 @@ class PlayerController {
      * @param {Object} params the properties to set on the newly created player
      */
     create(body) {
-        const player = playerModel.createPlayer(body); 
 
-        playerModel.createPlayer(body);
+        const schema = Joi.object().keys({
+            // Id cannot be modified
+            id: Joi.forbidden(),
+            // require that these fields can't be blank
+            firstName: Joi.string().required(),
+            lastName: Joi.string().required(),
+            winning: Joi.number().required(),
+            country: Joi.string().required(),
+        });
 
-        return player;
-        
+        // Validate request data agianst schema
+        return Joi.validate(body, schema, (err, value) => {
+            // assign a random int ID to the plaeyr
+            const id = Math.ceil(Math.random() * 9999999);
+
+            if (err) {
+                // If anything goes wrong send status 400 
+                return false;
+            } else {
+                // Bind the randomly generated Id to the player
+                body = Object.assign({ id }, value)
+
+                playerModel.createPlayer(body);
+                return body;
+            }
+        });
+
     }
 
     /**
@@ -47,8 +73,6 @@ class PlayerController {
 
         const player = playerModel.getPlayer(playerId);
 
-        // player not found
-        // return something that identifies this 
 
         if (player) {
             if (body.firstName) {
@@ -60,6 +84,11 @@ class PlayerController {
             } if (body.country) {
                 player.country = body.country
             }
+        } else {
+
+            // player not found
+            // return something that identifies this 
+            return false
         }
 
         playerModel.editPlayer(playerId, player)
@@ -74,11 +103,10 @@ class PlayerController {
      */
     // In Progress
     delete(playerId) {
-        
-        const player = playerModel.deletePlayer(playerId); 
 
-        playerModel.deletePlayer(playerId)
-    
+        playerModel.deletePlayer(playerId);
+
+
     }
 }
 
