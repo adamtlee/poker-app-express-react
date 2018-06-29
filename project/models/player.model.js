@@ -107,7 +107,7 @@ const deletePlayer = (playerId, player) => {
   if (foundPlayer){
     players.splice(players.indexOf(foundPlayer), 1);
   } 
-  return player;
+  return foundplayer;
 }
 //}
 
