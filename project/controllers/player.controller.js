@@ -9,9 +9,9 @@ class PlayerController {
         // don't need to? don't worry then.
     }
 
-    list() {
+    async list() {
         // return all players
-        const players = playerModel.getPlayers();
+        const players = await playerModel.getPlayers();
         return players;
     }
 

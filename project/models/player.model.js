@@ -6,6 +6,8 @@ AWS.config.update({
   endpoint: "http://localhost:8000"
 });
 var dynamodb = new AWS.DynamoDB();
+
+var docClient = new AWS.DynamoDB.DocumentClient();
 // Seed db
 const players = [
   { id: 1, firstName: 'Anthony', lastName: 'Romo', winning: '324', country: 'Brazil' },
@@ -16,8 +18,11 @@ const players = [
 /* 
   This function returns all players from the array players
 */
-const getPlayers = () => {
-  
+ const getPlayers = async () => {
+  const params = {
+    TableName: "Players"
+  }
+  const players = await dynamodb.scan(params).promise();
   return players;
 }
 

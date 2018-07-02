@@ -35,8 +35,8 @@ const createPlayer = (req, res) => {
 }
 
 // Get the index of players
-const getPlayers = (req, res) => {
-    const getPlayers = playerController.list();
+const getPlayers = async (req, res) => {
+    const getPlayers = await playerController.list();
 
     if (getPlayers) {
         return res.status(200).json(getPlayers);
@@ -78,7 +78,7 @@ const editPlayerDetails = (req, res) => {
 
 // Delete a player (In Progress)
 const deletePlayer = (req, res) => {
-    
+
     let id = req.params.id;
     id = Number.parseInt(id);
 
