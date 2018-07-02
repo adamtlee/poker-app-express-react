@@ -1,4 +1,11 @@
-
+var AWS = require("aws-sdk");
+AWS.config.update({
+  accessKeyId: 'accessKeyId',
+  secretAccessKey: 'secretAccessKey',
+  region: "eu-west-2",
+  endpoint: "http://localhost:8000"
+});
+var dynamodb = new AWS.DynamoDB();
 // Seed db
 const players = [
   { id: 1, firstName: 'Anthony', lastName: 'Romo', winning: '324', country: 'Brazil' },
@@ -10,14 +17,15 @@ const players = [
   This function returns all players from the array players
 */
 const getPlayers = () => {
+  
   return players;
 }
 
 // Create a New Player
 const createPlayer = (body) => {
-     
-     // push the player to the "fake db"
-     players.push(body);
+
+  // push the player to the "fake db"
+  players.push(body);
 }
 
 /**
@@ -45,18 +53,18 @@ const editPlayer = (playerId, player) => {
       return player.id === playerId
     }
   ))
-  foundPlayer = player; 
+  foundPlayer = player;
 }
 
 // Delete Function
 const deletePlayer = (playerId) => {
   let foundPlayer = getPlayer(playerId);
   // If the player is found
-  if (foundPlayer){
+  if (foundPlayer) {
     // Delete the player 
     players.splice(players.indexOf(foundPlayer), 1);
-  } 
+  }
 }
 
 // export the functions
-module.exports = { getPlayer, getPlayers, editPlayer, deletePlayer, createPlayer};
+module.exports = { getPlayer, getPlayers, editPlayer, deletePlayer, createPlayer };

@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon  ./bin/www",
     "test": "node ./test/index.js"
   },
   "author": "Adam",
