@@ -78,12 +78,12 @@ const editPlayerDetails = (req, res) => {
 }
 
 // Delete a player (In Progress)
-const deletePlayer = (req, res) => {
+const deletePlayer = async (req, res) => {
 
     let id = req.params.id;
     id = Number.parseInt(id);
 
-    playerController.delete(id);
+    await playerController.delete(id);
 
     res.sendStatus(204);
 

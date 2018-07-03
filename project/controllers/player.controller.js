@@ -101,9 +101,9 @@ class PlayerController {
      * @param {Number} playerId the id of the player to delete
      */
     // In Progress
-    delete(playerId) {
+    async delete(playerId) {
 
-        playerModel.deletePlayer(playerId);
+        await playerModel.deletePlayer(playerId);
 
 
     }

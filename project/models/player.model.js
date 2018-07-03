@@ -52,24 +52,38 @@ const getPlayer = async (id) => {
 }
 
 // Edit player method
-const editPlayer = (playerId, player) => {
-
-  let foundPlayer = players.find((
-    player => {
-      return player.id === playerId
+const editPlayer = async (playerId, player) => {
+  const params = {
+    TableName: "Players", 
+    Key: {
+      "id": id
     }
-  ))
-  foundPlayer = player;
+  }
+
+  // let foundPlayer = players.find((
+  //   player => {
+  //     return player.id === playerId
+  //   }
+  // ))
+  // foundPlayer = player;
 }
 
 // Delete Function
-const deletePlayer = (playerId) => {
-  let foundPlayer = getPlayer(playerId);
-  // If the player is found
-  if (foundPlayer) {
-    // Delete the player 
-    players.splice(players.indexOf(foundPlayer), 1);
+const deletePlayer = async (playerId) => {
+  const params = {
+    TableName: "Players", 
+    Key: {
+      "id": playerId
+    }
   }
+
+   await docClient.delete(params).promise(); 
+  // let foundPlayer = getPlayer(playerId);
+  // // If the player is found
+  // if (foundPlayer) {
+  //   // Delete the player 
+  //   players.splice(players.indexOf(foundPlayer), 1);
+  // }
 }
 
 // export the functions
