@@ -67,16 +67,25 @@ const editPlayer = async (playerId, player) => {
   const params = {
     TableName: "Players", 
     Key: {
-      "id": id
+      'id' : playerId
+    },
+    UpdateExpression: 'set firstName = :f, lastName = :l, winning = :w, country = :c',
+    ExpressionAttributeValues:{
+      ':f': player.firstName, 
+      ':l': player.lastName, 
+      ':w': player.winning, 
+      ':c': player.country     
     }
   }
 
-  // let foundPlayer = players.find((
-  //   player => {
-  //     return player.id === playerId
-  //   }
-  // ))
-  // foundPlayer = player;
+ const foundPlayer = await docClient.update(params).promise(); 
+  return foundPlayer;
+    // let foundPlayer = players.find((
+    //    player => {
+    //      return player.id === playerId
+    //    }
+    //  ))
+    //  foundPlayer = player;
 }
 
 // Delete Function

@@ -46,12 +46,12 @@ const getPlayerDetail = async (req, res) => {
 }
 
 // Edit the Details of a player 
-const editPlayerDetails = (req, res) => {
+const editPlayerDetails = async (req, res) => {
     let id = req.params.id;
     id = Number.parseInt(id);
     let body = req.body
 
-    const playerResp = playerController.edit(id, body);
+    const playerResp = await playerController.edit(id, body);
 
     // did playerResponse fail get player if so respond with 
     if (playerResp === false) {

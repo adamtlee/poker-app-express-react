@@ -68,10 +68,9 @@ class PlayerController {
      * @param {*} playerId the id of the player to edit
      * @param {*} params the properties to update on the player
      */
-    edit(playerId, body) {
+    async edit(playerId, body) {
 
-        const player = playerModel.getPlayer(playerId);
-
+        const player =  await playerModel.getPlayer(playerId);
 
         if (player) {
             if (body.firstName) {
