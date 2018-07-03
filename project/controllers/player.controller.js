@@ -32,7 +32,7 @@ class PlayerController {
      * Create a player 
      * @param {Object} params the properties to set on the newly created player
      */
-    create(body) {
+    async create(body) {
 
         const schema = Joi.object().keys({
             // Id cannot be modified
@@ -45,7 +45,7 @@ class PlayerController {
         });
 
         // Validate request data agianst schema
-        return Joi.validate(body, schema, (err, value) => {
+        return Joi.validate(body, schema, async (err, value) => {
             // assign a random int ID to the plaeyr
             const id = Math.ceil(Math.random() * 9999999);
 
@@ -56,7 +56,7 @@ class PlayerController {
                 // Bind the randomly generated Id to the player
                 body = Object.assign({ id }, value)
 
-                playerModel.createPlayer(body);
+                await playerModel.createPlayer(body);
                 return body;
             }
         });
@@ -100,7 +100,6 @@ class PlayerController {
      * Delete a player
      * @param {Number} playerId the id of the player to delete
      */
-    // In Progress
     async delete(playerId) {
 
         await playerModel.deletePlayer(playerId);

@@ -27,10 +27,21 @@ const players = [
 }
 
 // Create a New Player
-const createPlayer = (body) => {
+const createPlayer = async (body) => {
+  var params = { 
+    TableName: 'Players', 
+    Item: { 
+      id: body.id,
+      firstName: body.firstName, 
+      lastName: body.lastName, 
+      winning: body.winning, 
+      country: body.country     
+    }
+  }
 
-  // push the player to the "fake db"
-  players.push(body);
+  await docClient.put(params).promise();
+  // push the player to the db
+  // players.push(body);
 }
 
 /**
@@ -78,12 +89,6 @@ const deletePlayer = async (playerId) => {
   }
 
    await docClient.delete(params).promise(); 
-  // let foundPlayer = getPlayer(playerId);
-  // // If the player is found
-  // if (foundPlayer) {
-  //   // Delete the player 
-  //   players.splice(players.indexOf(foundPlayer), 1);
-  // }
 }
 
 // export the functions

@@ -5,26 +5,11 @@ const router = express.Router();
 const PlayerController = require('../controllers/player.controller');
 const playerController = new PlayerController();
 
-
-/* This is your route code. it sould make use of your controller to retrieve the data you want
-* It should also handle sending back HTTP responses
-*
-* Your controller should not have knowledge of the 'req' and 'res' objects.
-* Why? Ask yourself shouldn't the controller be able to be used by another part of the 
-*      code that doesn't have the 'req' and 'res' objects?
-*      Might you need to retrieve a player for another purpose? Perhaps checking a property or checking that it exists. 
-*      Maybe you do this at some point but don't immediately send an HTTP response?
-*/
-
-// const createPlayer = (req, res) => {
-
-// }
-
 // Create a Player
-// in progress
-const createPlayer = (req, res) => {
+const createPlayer = async (req, res) => {
+    
     var body = req.body;
-    const createPlayer = playerController.create(body);
+    const createPlayer = await playerController.create(body);
     if (createPlayer) {
         return res.status(201).json(createPlayer);
     } else {
@@ -97,13 +82,4 @@ router.get('/:id', getPlayerDetail);
 router.patch('/:id', editPlayerDetails);
 router.delete('/:id', deletePlayer);
 
-
-
-// TODO follow this pattern for the other routes!
-
-/*
-router.post('/', player_controller.player_create);
-router.patch('/:id', player_controller.player_edit); 
-router.delete('/:id', player_controller.player_delete);
-*/
 module.exports = router;
