@@ -38,16 +38,17 @@ const createPlayer = (body) => {
  * @param {Number} id The player id 
  * @returns {Object} The JSON version of the player
  */
-const getPlayer = (id) => {
+const getPlayer = async (id) => {
   // Find the id of the player
-  const foundPlayer = players.find((
-    player => {
-      // Check to see if it is equal to the id we are looking for
-      return player.id === id;
+  const params = {
+    TableName: "Players", 
+    Key: {
+      "id": id
     }
-  ))
+  }
+  const player = await docClient.get(params).promise(); 
   // return that found player 
-  return foundPlayer;
+  return player;
 }
 
 // Edit player method

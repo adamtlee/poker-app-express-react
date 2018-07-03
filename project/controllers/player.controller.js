@@ -20,12 +20,11 @@ class PlayerController {
      * @param {Number} id 
      * @returns {Object} The player that was found or null
      */
-    get(id) {
+    async get(id) {
         // get player by id
 
         // check that id is a number
-        const player = playerModel.getPlayer(id);
-
+        const player = await playerModel.getPlayer(id);
         return player;
     }
 

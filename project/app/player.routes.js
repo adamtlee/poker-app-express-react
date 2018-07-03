@@ -46,11 +46,12 @@ const getPlayers = async (req, res) => {
 }
 
 // Get the details of a single player 
-const getPlayerDetail = (req, res) => {
+const getPlayerDetail = async (req, res) => {
+
     let id = req.params.id;
     id = Number.parseInt(id);
 
-    const foundPlayerDetail = playerController.get(id);
+    const foundPlayerDetail =  await playerController.get(id);
 
     if (foundPlayerDetail) {
         return res.status(200).json(foundPlayerDetail);
