@@ -22,8 +22,8 @@ var docClient = new AWS.DynamoDB.DocumentClient();
   const params = {
     TableName: "Players"
   }
-  const players = await dynamodb.scan(params).promise();
-  return players && players.Items;
+  const players = await docClient.scan(params).promise();
+  return players && players.Items ? players.Items :null;
 }
 
 // Create a New Player
