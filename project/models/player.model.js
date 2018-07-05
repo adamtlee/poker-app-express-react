@@ -9,11 +9,11 @@ var dynamodb = new AWS.DynamoDB();
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 // Seed db
-const players = [
-  { id: 1, firstName: 'Anthony', lastName: 'Romo', winning: '324', country: 'Brazil' },
-  { id: 2, firstName: 'Vanessa', lastName: 'bach', winning: '563', country: 'Bolivia' },
-  { id: 3, firstName: 'Tom', lastName: 'Herf', winning: '200', country: 'France' }
-]
+// const players = [
+//   { id: 1, firstName: 'Anthony', lastName: 'Romo', winning: '324', country: 'Brazil' },
+//   { id: 2, firstName: 'Vanessa', lastName: 'bach', winning: '563', country: 'Bolivia' },
+//   { id: 3, firstName: 'Tom', lastName: 'Herf', winning: '200', country: 'France' }
+// ]
 
 /* 
   This function returns all players from the array players
@@ -23,7 +23,7 @@ const players = [
     TableName: "Players"
   }
   const players = await dynamodb.scan(params).promise();
-  return players;
+  return players && players.Items;
 }
 
 // Create a New Player
@@ -59,7 +59,7 @@ const getPlayer = async (id) => {
   }
   const player = await docClient.get(params).promise(); 
   // return that found player 
-  return player;
+  return player && player.Item ? player.Item : null;
 }
 
 // Edit player method
