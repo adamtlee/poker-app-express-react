@@ -4,10 +4,6 @@ const playerModel = require('../models/player.model');
 const Joi = require('joi');
 
 class PlayerController {
-    constructor() {
-        // need to initialize somerthing? do it here
-        // don't need to? don't worry then.
-    }
 
     async list() {
         // return all players
@@ -83,14 +79,10 @@ class PlayerController {
                 player.country = body.country
             }
         } else {
-
-            // player not found
-            // return something that identifies this 
             return false
         }
 
         playerModel.editPlayer(playerId, player)
-
         return player;
 
     }

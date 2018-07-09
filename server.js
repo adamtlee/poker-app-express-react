@@ -5,7 +5,7 @@ const bodyParser = require('body-parser'),
 
 const app = express();
 // Run the server on port on 3000
-const port = (process.env.PORT || 3000);
+const port = (process.env.PORT || 5000);
 
 // Add body parsing for Content-Type json
 app.use(bodyParser.json());
@@ -15,11 +15,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const playerRoute = require('./project/app/player.routes');
 
 // Player routes
-app.use('/player', playerRoute);
+app.use('/players', playerRoute);
 
 // Listen on port 3000
 app.listen(port, () => {
-  console.log('player app running')
+  console.log(`player app running on ${port}`)
 });
 
 // Export

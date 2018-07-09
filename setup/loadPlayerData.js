@@ -5,12 +5,12 @@ AWS.config.update({
     endpoint: "http://localhost:8000"
 });
 var docClient = new AWS.DynamoDB.DocumentClient();
-console.log("Importing Players into DynamoDB. Please wait.");
+console.log("Importing Players into DynamoDB. Please wait....");
 var players = JSON.parse(fs.readFileSync('playerData.json', 'utf8'));
 players.forEach(function(player) {
   console.log(player)
 var params = {
-        TableName: "Cars",
+        TableName: "Players",
         Item: {
             "id": player.id,
             "firstName": player.firstName,

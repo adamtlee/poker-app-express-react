@@ -8,12 +8,6 @@ AWS.config.update({
 var dynamodb = new AWS.DynamoDB();
 
 var docClient = new AWS.DynamoDB.DocumentClient();
-// Seed db
-// const players = [
-//   { id: 1, firstName: 'Anthony', lastName: 'Romo', winning: '324', country: 'Brazil' },
-//   { id: 2, firstName: 'Vanessa', lastName: 'bach', winning: '563', country: 'Bolivia' },
-//   { id: 3, firstName: 'Tom', lastName: 'Herf', winning: '200', country: 'France' }
-// ]
 
 /* 
   This function returns all players from the array players
@@ -40,8 +34,6 @@ const createPlayer = async (body) => {
   }
 
   await docClient.put(params).promise();
-  // push the player to the db
-  // players.push(body);
 }
 
 /**
@@ -88,12 +80,6 @@ const editPlayer = async (playerId, player) => {
  const foundPlayer = await docClient.update(params).promise(); 
  
  return foundPlayer;
-    // let foundPlayer = players.find((
-    //    player => {
-    //      return player.id === playerId
-    //    }
-    //  ))
-    //  foundPlayer = player;
 }
 
 // Delete Function

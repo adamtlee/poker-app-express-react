@@ -8,7 +8,7 @@ var request = supertest(server);
 describe("DELETE players route", function(){ 
     // Deletes a user
     it('Deletes a specific user (id = 2)', function (){
-       request.delete('/player/2')
+       request.delete('/player/' + player.id)
        .then(response => {
            var {
                status

@@ -13,12 +13,14 @@ describe("POST players route", function(){
     // Create a Player Test Case 
     it('saves a new player', function( ){
         return request.post('/player')
-            .send({
-                firstName: 'bob', 
-                lastName: 'smith', 
-                winning: '42', 
-                country: 'Brazil'
-            })
+            .send([
+                {
+                    firstName: 'bob', 
+                    lastName: 'smith', 
+                    winning: '42', 
+                    country: 'Brazil'
+                }
+            ])
             .then(response => {
                 var {
                     status,
