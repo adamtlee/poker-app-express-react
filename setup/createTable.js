@@ -6,8 +6,14 @@ AWS.config.update({
     endpoint: "http://localhost:8000"
 });
 var dynamodb = new AWS.DynamoDB();
+// Check if the node env is in test
+let dbName = "Players"
+if (process.env.NODE_ENV === 'test') {
+    dbName = process.env.TEST_PLAYERS_TABLE_NAME;
+}
+
 var params = {
-    TableName: "Players",
+    TableName: dbName,
     KeySchema: [
         { AttributeName: "id", KeyType: "HASH" },  //Partition key
     ],
