@@ -1,23 +1,18 @@
 var supertest = require("supertest"); 
-let chai = require('chai'); 
-var seedPlayers = require("../setup/db")
+let chai = require('chai');  
+var dbSetup = require("../setup/db");
 chai.should();
 
 var server = require('../server.js');
 var request = supertest(server);
 
-describe('Get Players tests', function() {
-    // playerId = dynamodb.getPlayerId(); 
-    let seedPlayers;
-
-    before(async () => {
-       // await setup.resetDatabase();
-        seedPlayer = await seedPlayers();
-        return;
-    }); 
-})
-
 describe("GET players route", function(){ 
+    let seedPlayers;
+    before(async () => {
+        // await setup.resetDatabase();
+         seedPlayers = await dbSetup.seedTable();
+         return;
+     }); 
     it('Should obtain the index of players', function(){
         return request.get('/players')
             .then(response => {
@@ -52,7 +47,7 @@ describe("GET players route", function(){
     });
 
     it("should get a player", function () {
-        let playerId = seedPlayers[0].playerId; 
+        let playerId = seedPlayers[0].id; 
         return request.get(`/players/${playerId}`)
             .then(response => {
                 let {
@@ -60,6 +55,9 @@ describe("GET players route", function(){
                     body
                 } = response; 
                 status.should.equal(200, 'status = 200'); 
+            })
+            .catch((e) => {
+                console.log(e);
             });
     }); 
         // // Testing the status 404 for player not found
