@@ -1,14 +1,24 @@
 var supertest = require("supertest");  
 let chai = require('chai'); 
+var dbSetup = require("../setup/db");
 chai.should(); 
 
 var server = require('../server.js'); 
 var request = supertest(server);
 
 describe("DELETE players route", function(){ 
-    // Deletes a user
-    it('Deletes a specific user (id = 2)', function (){
-       request.delete('/player/' + player.id)
+    let seedPlayers;
+    before(async () => {
+         //deleteTableData=  await deleteDb.deleteTables();
+         //await dbSetup.resetDatabase();
+         seedPlayers = await dbSetup.seedTable();
+         console.log(seedPlayers)
+         return seedPlayers;
+     }); 
+    
+    it('Deletes a user by ID', function (){
+       let playerId = seedPlayers[0].id; 
+       request.delete(`/player/${playerId}`)
        .then(response => {
            var {
                status
@@ -17,8 +27,9 @@ describe("DELETE players route", function(){
        })
     });  
 
-    it('gets a specific user (id = 2) and does not find it', function (){
-        return request.get('/player/2')
+    it('Fails to delete a non-existing user ', function (){
+        let playerId = { fakeId: "fakeId"}
+        return request.delete(`/player/${playerId}`)
             .then(response => {
                 var {
                     status
@@ -26,15 +37,4 @@ describe("DELETE players route", function(){
                 status.should.eql(404)
             })  
     });
-
-    it('fails to delete a non-existing user', function(){
-        return request.get('/player/z')
-        .then(response => {
-            var {
-                status, 
-                body
-            } = response
-            status.should.eql(404)
-        })
-    })  
 });

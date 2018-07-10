@@ -1,14 +1,16 @@
 var supertest = require("supertest"); 
 let chai = require('chai');  
 var dbSetup = require("../setup/db");
+var deleteDb = require("../setup/deleteTable");
 chai.should();
 
-var server = require('../server.js');
+var server = require('../server');
 var request = supertest(server);
 
 describe("GET players route", function(){ 
     let seedPlayers;
     before(async () => {
+         //deleteTableData=  await deleteDb.deleteTables();
          //await dbSetup.resetDatabase();
          seedPlayers = await dbSetup.seedTable();
          console.log(seedPlayers)
@@ -37,7 +39,8 @@ describe("GET players route", function(){
 
     // Fail to retrieve id of non existant player
     it("should return 404 status of not found of an invalid user id ", function(){
-        return request.get('/player/a')
+        let playerId = { fakeId: "fakeId"}
+        return request.get(`/player/${playerId}`)
             .then(response => {
                 var{
                     status, 
@@ -48,8 +51,8 @@ describe("GET players route", function(){
     });
 
     it("should get a player", function () {
-        let playerId = seedPlayers[0].id; 
-        console.log(seedPlayers[0].id)
+        let playerId = seedPlayers[1].id; 
+        console.log("player at index 1: ", seedPlayers[1].id)
         return request.get(`/players/${playerId}`)
         
             .then(response => {
@@ -63,31 +66,4 @@ describe("GET players route", function(){
                 console.log(e);
             });
     }); 
-
-
-        // // Testing the status 404 for player not found
-        // it('returns status 404 when id is not found', function() {
-        //     var player = { id: 'fakeId' }
-        //     return request.get('/players/' + player.id)
-        //       .then(response => {
-        //         var { 
-        //           status, 
-        //           body
-        //         } = response
-        //         status.should.eql(404)
-        //       })
-        // });
-    
-    // // Retrieve id of a specified player 
-    // it("should return id of a player selected ", function(){
-    //    var player = server.docClient.get('Players').first(); 
-    //    return request.get('/players/' + player.id)
-    //     .then(response => {
-    //         var {
-    //             status, 
-    //             body
-    //         } = response
-    //         status.should.eql(200)   
-    //     })
-    // });
 }); 

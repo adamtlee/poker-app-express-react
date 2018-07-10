@@ -23,12 +23,11 @@ seedData = [
 ]
  const seedTable = async () => {
       const players = await seedData.map(async (player) => {
-        const newPlayer = await playerController.create(player)
-        return newPlayer; 
+      const newPlayer = await playerController.create(player)
+      return newPlayer; 
  })
  console.log("player method: ", players);
  return Promise.all(players);
-
 }
 
 

@@ -13,7 +13,7 @@ const testFiles = [
   //'./post.js',
   './get.js',
   //'./patch.js',
-  //'./delete.js'
+  './delete.js'
 ], 
 {
   getPlayerId
