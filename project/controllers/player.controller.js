@@ -1,4 +1,5 @@
 const playerModel = require('../models/player.model');
+const uuidv4 = require('uuid/v4');
 
 // Define Validation for player
 const Joi = require('joi');
@@ -44,6 +45,8 @@ class PlayerController {
         return Joi.validate(body, schema, async (err, value) => {
             // assign a random int ID to the plaeyr
             const id = Math.ceil(Math.random() * 9999999);
+            //const myid = uuidv4(); 
+            //console.log("##########", myid);
 
             if (err) {
                 // If anything goes wrong send status 400 
@@ -68,6 +71,7 @@ class PlayerController {
 
         const player =  await playerModel.getPlayer(playerId);
 
+        // switch - case TODO
         if (player) {
             if (body.firstName) {
                 player.firstName = body.firstName

@@ -28,7 +28,7 @@ mocha.run().on('end', async () => {
 
   process.stdout.write('Tests complete\n');
   // call the deleteTable in setup/deleteTable.js 
-  await setup.deleteTable();
-  console.log("test tables deleted");
+  //await setup.deleteTable();
+  //console.log("test tables deleted");
   process.exit(0);
 });
