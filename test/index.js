@@ -3,6 +3,7 @@ var supertest = require('supertest');
 var chai = require('chai');  
 chai.should(); 
 var app = require('../server.js');
+var setup = require('../setup/deleteTable');
 
 const mocha = new Mocha({
   timeout: 30000
@@ -23,8 +24,11 @@ testFiles.forEach(e => {
 });
 
 // Run the tests.
-mocha.run().on('end', () => {
+mocha.run().on('end', async () => {
 
   process.stdout.write('Tests complete\n');
+  // call the deleteTable in setup/deleteTable.js 
+  await setup.deleteTable();
+  console.log("test tables deleted");
   process.exit(0);
 });

@@ -55,7 +55,7 @@ describe("GET players route", function(){
         let playerId = seedPlayers[0].playerId; 
         return request.get(`/players/${playerId}`)
             .then(response => {
-                var {
+                let {
                     status, 
                     body
                 } = response; 
