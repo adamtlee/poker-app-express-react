@@ -9,9 +9,10 @@ var request = supertest(server);
 describe("GET players route", function(){ 
     let seedPlayers;
     before(async () => {
-        // await setup.resetDatabase();
+         //await dbSetup.resetDatabase();
          seedPlayers = await dbSetup.seedTable();
-         return;
+         console.log(seedPlayers)
+         return seedPlayers;
      }); 
     it('Should obtain the index of players', function(){
         return request.get('/players')
@@ -48,7 +49,9 @@ describe("GET players route", function(){
 
     it("should get a player", function () {
         let playerId = seedPlayers[0].id; 
+        console.log(seedPlayers[0].id)
         return request.get(`/players/${playerId}`)
+        
             .then(response => {
                 let {
                     status, 
@@ -60,6 +63,8 @@ describe("GET players route", function(){
                 console.log(e);
             });
     }); 
+
+
         // // Testing the status 404 for player not found
         // it('returns status 404 when id is not found', function() {
         //     var player = { id: 'fakeId' }
