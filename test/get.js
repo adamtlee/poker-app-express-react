@@ -1,14 +1,25 @@
 var supertest = require("supertest"); 
-var should = require("should"); 
 let chai = require('chai'); 
+var seedPlayers = require("../setup/db")
 chai.should();
 
 var server = require('../server.js');
 var request = supertest(server);
 
+describe('Get Players tests', function() {
+    // playerId = dynamodb.getPlayerId(); 
+    let seedPlayers;
+
+    before(async () => {
+       // await setup.resetDatabase();
+        seedPlayer = await seedPlayers();
+        return;
+    }); 
+})
+
 describe("GET players route", function(){ 
     it('Should obtain the index of players', function(){
-        return request.get('/player')
+        return request.get('/players')
             .then(response => {
                 var { 
                     status, 
@@ -39,16 +50,41 @@ describe("GET players route", function(){
                 status.should.eql(404)
             })
     });
+
+    it("should get a player", function () {
+        let playerId = seedPlayers[0].playerId; 
+        return request.get(`/players/${playerId}`)
+            .then(response => {
+                var {
+                    status, 
+                    body
+                } = response; 
+                status.should.equal(200, 'status = 200'); 
+            });
+    }); 
+        // // Testing the status 404 for player not found
+        // it('returns status 404 when id is not found', function() {
+        //     var player = { id: 'fakeId' }
+        //     return request.get('/players/' + player.id)
+        //       .then(response => {
+        //         var { 
+        //           status, 
+        //           body
+        //         } = response
+        //         status.should.eql(404)
+        //       })
+        // });
     
-    // Retrieve id of a specified player 
-    it("should return id of a player selected (in this case player id = 3", function(){
-       return request.get('/player/3')
-        .then(response => {
-            var {
-                status, 
-                body
-            } = response
-            status.should.eql(200)   
-        })
-    });
+    // // Retrieve id of a specified player 
+    // it("should return id of a player selected ", function(){
+    //    var player = server.docClient.get('Players').first(); 
+    //    return request.get('/players/' + player.id)
+    //     .then(response => {
+    //         var {
+    //             status, 
+    //             body
+    //         } = response
+    //         status.should.eql(200)   
+    //     })
+    // });
 }); 

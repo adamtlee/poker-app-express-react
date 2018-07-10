@@ -10,7 +10,8 @@ var request = supertest(server);
 describe("PATCH players route", function(){ 
     // Edit a user
     it('Edits a user', function (){
-        return request.patch('/player/2')
+        var player = {id: 7345780}
+        return request.patch('/player/' + player.id)
         .send({
             firstName: 'patchy3453', 
             lastName: 'lastpatchy'
