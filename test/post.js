@@ -12,15 +12,15 @@ var request = supertest(server);
 describe("POST players route", function(){ 
     // Create a Player Test Case 
     it('saves a new player', function( ){
-        return request.post('/player')
-            .send([
-                {
-                    firstName: 'bob', 
-                    lastName: 'smith', 
-                    winning: '42', 
-                    country: 'Brazil'
-                }
-            ])
+        const playerData = {
+            firstName: 'Hermione', 
+            lastName: 'Granger', 
+            winning: '32', 
+            country: 'USA'
+        }
+        console.log(playerData);
+        return request.post(`/players`)
+            .send(playerData)
             .then(response => {
                 var {
                     status,
@@ -28,19 +28,20 @@ describe("POST players route", function(){
                 } = response
                 status.should.eql(201)
             })
-            body[0].should.have.property('firstName').and.to.be.a('string');
-            body[0].should.have.property('lastName').and.to.be.a('string');
-            body[0].should.have.property('winning');
-            body[0].should.have.property('country').and.to.be.a('string'); 
+            body.should.have.property('firstName').and.to.be.a('string');
+            body.should.have.property('lastName').and.to.be.a('string');
+            body.should.have.property('winning');
+            body.should.have.property('country').and.to.be.a('string'); 
     });
 
     it('fails to post a new player due to missing field (lastName = null)', function(){
-        return request.post('/player')
-            .send({
+        return request.post('/players')
+            const playerData = {
                 firstName: 'failingPlayer',  
                 winning: '42', 
                 country: 'Brazil'
-            })
+            }
+            .send(playerData)
             .then(response => {
                 var {
                     status, 
@@ -48,6 +49,6 @@ describe("POST players route", function(){
                 } = response
                 status.should.eql(400)
             })
-    })
-}); 
+        })
+    }); 
  

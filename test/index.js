@@ -10,7 +10,7 @@ const mocha = new Mocha({
 });
 
 const testFiles = [
-  //'./post.js',
+  './post.js',
   './get.js',
   //'./patch.js',
   './delete.js'
