@@ -1,6 +1,7 @@
 var supertest = require("supertest");  
 let chai = require('chai'); 
 var dbSetup = require("../setup/db");
+var dbDelete = require("../setup/deleteTable");
 chai.should(); 
 
 var server = require('../server.js'); 
@@ -9,8 +10,7 @@ var request = supertest(server);
 describe("DELETE players route", function(){ 
     let seedPlayers;
     before(async () => {
-         //deleteTableData=  await deleteDb.deleteTables();
-         //await dbSetup.resetDatabase();
+        console.log("[Delete]seeding players...")
          seedPlayers = await dbSetup.seedTable();
          console.log(seedPlayers)
          return seedPlayers;
@@ -37,4 +37,9 @@ describe("DELETE players route", function(){
                 status.should.eql(404)
             })  
     });
+    after (async () => {
+        console.log("[Delete]tests complete deleting db...")
+        return await dbDelete();
+
+    })
 });

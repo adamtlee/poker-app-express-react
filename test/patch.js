@@ -1,6 +1,7 @@
 var supertest = require("supertest"); 
 var should = require("should"); 
 dbSetup = require("../setup/db");
+dbDelete = require("../setup/deleteTable");
 
 let chai = require('chai'); 
 chai.should(); 
@@ -9,16 +10,16 @@ var server = require('../server.js');
 var request = supertest(server); 
 
 describe("PATCH players route", function(){ 
-    // Before function
     let seedPlayers; 
     before(async () => {
+        console.log("[Patch]seeding players...");
         seedPlayers = await dbSetup.seedTable();
+        console.log(seedPlayers);
         return seedPlayers;
     }); 
 
     // Edit a user
     it('Edits a user', function (){
-        //var player = {id: 7345780}
         let playerId = seedPlayers[1].id
             const playerData = {
                 firstName: 'patchy3453', 
@@ -78,4 +79,10 @@ describe("PATCH players route", function(){
     //     })
         
     // })
+
+    after (async () => {
+        console.log("[Patch]tests complete deleting db...")
+        return await dbDelete();
+
+    })
 });

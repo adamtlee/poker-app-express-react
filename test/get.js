@@ -1,7 +1,7 @@
 var supertest = require("supertest"); 
 let chai = require('chai');  
 var dbSetup = require("../setup/db");
-var deleteDb = require("../setup/deleteTable");
+var dbDelete = require("../setup/deleteTable");
 chai.should();
 
 var server = require('../server');
@@ -9,13 +9,15 @@ var request = supertest(server);
 
 describe("GET players route", function(){ 
     let seedPlayers;
-    before(async () => {
-         //deleteTableData=  await deleteDb.deleteTables();
-         //await dbSetup.resetDatabase();
-         seedPlayers = await dbSetup.seedTable();
+    const createPlayers = (async () => {
+        console.log("[Get]seeding players...");
+        seedPlayers = await dbSetup.seedTable();
          console.log(seedPlayers)
          return seedPlayers;
-     }); 
+    })
+    before(() => {
+         createPlayers();
+    })
     it('Should obtain the index of players', function(){
         return request.get('/players')
             .then(response => {
@@ -66,4 +68,10 @@ describe("GET players route", function(){
                 console.log(e);
             });
     }); 
+
+    after (async () => {
+        console.log("[Get]test complete deleting db...")
+        return await dbDelete();
+
+    })
 }); 
