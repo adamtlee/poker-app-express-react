@@ -37,9 +37,9 @@ describe("DELETE players route", function(){
                 status.should.eql(404)
             })  
     });
-    // after (async () => {
-    //     console.log("[Delete]tests complete deleting db...")
-    //     return await dbDelete();
+    after (async () => {
+        console.log("[Delete]tests complete deleting db...")
+        return await dbDelete();
 
-    // })
+    })
 });

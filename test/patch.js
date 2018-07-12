@@ -76,13 +76,11 @@ describe("PATCH players route", function(){
     //             body
     //         } = response 
     //         status.should.eql(404)
-    //     })
-        
-    // })
+    //     })   
+    // });
 
     // after (async () => {
     //     console.log("[Patch]tests complete deleting db...")
     //     return await dbDelete();
-
     // })
 });
