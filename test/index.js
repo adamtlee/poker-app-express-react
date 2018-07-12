@@ -11,10 +11,10 @@ const mocha = new Mocha({
 });
 
 const testFiles = [
-  //'./get.js',
+  './get.js',
   './patch.js',
   './delete.js',
-  //'./post.js'
+  './post.js'
 ], 
 {
   getPlayerId

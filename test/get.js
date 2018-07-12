@@ -69,9 +69,9 @@ describe("GET players route", function(){
             });
     }); 
 
-    after (async () => {
-        console.log("[Get]test complete deleting db...")
-        return await dbDelete();
+    // after (async () => {
+    //     console.log("[Get]test complete deleting db...")
+    //     return await dbDelete();
 
-    })
+    // })
 }); 
