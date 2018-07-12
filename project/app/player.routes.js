@@ -7,7 +7,7 @@ const playerController = new PlayerController();
 
 // Create a Player
 const createPlayer = async (req, res) => {
-    
+
     var body = req.body;
     const createPlayer = await playerController.create(body);
     if (createPlayer) {
@@ -36,7 +36,7 @@ const getPlayerDetail = async (req, res) => {
     let id = req.params.id;
     id = Number.parseInt(id);
 
-    const foundPlayerDetail =  await playerController.get(id);
+    const foundPlayerDetail = await playerController.get(id);
 
     if (foundPlayerDetail) {
         return res.status(200).json(foundPlayerDetail);
@@ -64,14 +64,15 @@ const editPlayerDetails = async (req, res) => {
 
 // Delete a player (In Progress)
 const deletePlayer = async (req, res) => {
-
     let id = req.params.id;
     id = Number.parseInt(id);
 
-    await playerController.delete(id);
-
-    res.sendStatus(204);
-
+    const wasDeleted = await playerController.delete(id);
+    if (wasDeleted) {
+        return res.sendStatus(204);
+    } else {
+        return res.sendStatus(404);
+    }
 }
 
 

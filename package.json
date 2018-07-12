@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon  ./bin/www",
+    "start": "nodemon",
     "test": "NODE_ENV=test TEST_PLAYERS_TABLE_NAME=test-players node ./test/index.js"
   },
   "author": "Adam",

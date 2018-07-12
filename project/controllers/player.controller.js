@@ -69,7 +69,7 @@ class PlayerController {
      */
     async edit(playerId, body) {
 
-        const player =  await playerModel.getPlayer(playerId);
+        const player = await playerModel.getPlayer(playerId);
 
         // switch - case TODO
         if (player) {
@@ -97,8 +97,7 @@ class PlayerController {
      */
     async delete(playerId) {
 
-        await playerModel.deletePlayer(playerId);
-
+        return await playerModel.deletePlayer(playerId);
 
     }
 }

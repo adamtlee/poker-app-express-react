@@ -12,24 +12,24 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 /* 
   This function returns all players from the array players
 */
- const getPlayers = async () => {
+const getPlayers = async () => {
   const params = {
     TableName: "Players"
   }
   const players = await docClient.scan(params).promise();
-  return players && players.Items ? players.Items :null;
+  return players && players.Items ? players.Items : null;
 }
 
 // Create a New Player
 const createPlayer = async (body) => {
-  var params = { 
-    TableName: 'Players', 
-    Item: { 
+  var params = {
+    TableName: 'Players',
+    Item: {
       id: body.id,
-      firstName: body.firstName, 
-      lastName: body.lastName, 
-      winning: body.winning, 
-      country: body.country     
+      firstName: body.firstName,
+      lastName: body.lastName,
+      winning: body.winning,
+      country: body.country
     }
   }
 
@@ -44,12 +44,12 @@ const createPlayer = async (body) => {
 const getPlayer = async (id) => {
   // Find the id of the player
   const params = {
-    TableName: "Players", 
+    TableName: "Players",
     Key: {
       "id": id
     }
   }
-  const player = await docClient.get(params).promise(); 
+  const player = await docClient.get(params).promise();
   // return that found player 
   return player && player.Item ? player.Item : null;
 }
@@ -57,41 +57,43 @@ const getPlayer = async (id) => {
 // Edit player method
 const editPlayer = async (playerId, player) => {
   const params = {
-    TableName: "Players", 
+    TableName: "Players",
     Key: {
-      'id' : playerId
+      'id': playerId
     },
     UpdateExpression: 'set #firstName = :f, #lastName = :l, #winning = :w, #country = :c',
     ExpressionAttributeNames: {
-      '#firstName' : 'firstName',
-      '#lastName' : 'lastName',
-      '#winning' : 'winning',
-      '#country' : 'country'
-    }, 
-    ExpressionAttributeValues:{
-      ':f': player.firstName, 
-      ':l': player.lastName, 
-      ':w': player.winning, 
-      ':c': player.country     
-    }, 
+      '#firstName': 'firstName',
+      '#lastName': 'lastName',
+      '#winning': 'winning',
+      '#country': 'country'
+    },
+    ExpressionAttributeValues: {
+      ':f': player.firstName,
+      ':l': player.lastName,
+      ':w': player.winning,
+      ':c': player.country
+    },
     ReturnValues: 'UPDATED_NEW'
   }
 
- const foundPlayer = await docClient.update(params).promise(); 
- 
- return foundPlayer;
+  const foundPlayer = await docClient.update(params).promise();
+
+  return foundPlayer;
 }
 
 // Delete Function
 const deletePlayer = async (playerId) => {
   const params = {
-    TableName: "Players", 
+    TableName: "Players",
     Key: {
       "id": playerId
-    }
+    },
+    ReturnValues: 'ALL_OLD'
   }
 
-   await docClient.delete(params).promise(); 
+  const result = await docClient.delete(params).promise();
+  return result.Attributes ? true : false;
 }
 
 // export the functions

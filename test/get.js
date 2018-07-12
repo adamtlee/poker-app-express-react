@@ -1,28 +1,27 @@
-var supertest = require("supertest"); 
-let chai = require('chai');  
-var dbSetup = require("../setup/db");
-var dbDelete = require("../setup/deleteTable");
+const supertest = require("supertest"),
+    chai = require('chai'),
+    dbSetup = require("../setup/db"),
+    dbDelete = require("../setup/deleteTable"),
+    { routes } = require('../project/constants/constants');
 chai.should();
 
 var server = require('../server');
 var request = supertest(server);
 
-describe("GET players route", function(){ 
+describe("GET players route", function () {
     let seedPlayers;
-    const createPlayers = (async () => {
+    before(async () => {
         console.log("[Get]seeding players...");
         seedPlayers = await dbSetup.seedTable();
-         console.log(seedPlayers)
-         return seedPlayers;
-    })
-    before(() => {
-         createPlayers();
-    })
-    it('Should obtain the index of players', function(){
-        return request.get('/players')
+   
+        return seedPlayers;
+    });
+
+    it('Should obtain the index of players', function () {
+        return request.get(`/${routes.player}`)
             .then(response => {
-                var { 
-                    status, 
+                var {
+                    status,
                     body
                 } = response
                 //console.log(response.body, status)
@@ -35,17 +34,17 @@ describe("GET players route", function(){
                 body[0].should.have.property('firstName').and.to.be.a('string');
                 body[0].should.have.property('lastName').and.to.be.a('string');
                 body[0].should.have.property('winning');
-                body[0].should.have.property('country').and.to.be.a('string'); 
+                body[0].should.have.property('country').and.to.be.a('string');
             })
-    }); 
+    });
 
     // Fail to retrieve id of non existant player
-    it("should return 404 status of not found of an invalid user id ", function(){
-        let playerId = { fakeId: "fakeId"}
-        return request.get(`/player/${playerId}`)
+    it("should return 404 status of not found of an invalid user id ", function () {
+        let playerId = 666
+        return request.get(`/${routes.player}/${playerId}`)
             .then(response => {
-                var{
-                    status, 
+                var {
+                    status,
                     body
                 } = response
                 status.should.eql(404)
@@ -53,25 +52,24 @@ describe("GET players route", function(){
     });
 
     it("should get a player", function () {
-        let playerId = seedPlayers[1].id; 
+        let playerId = seedPlayers[1].id;
         console.log("player at index 1: ", seedPlayers[1].id)
-        return request.get(`/players/${playerId}`)
-        
+        return request.get(`/${routes.player}/${playerId}`)
+
             .then(response => {
                 let {
-                    status, 
+                    status,
                     body
-                } = response; 
-                status.should.equal(200, 'status = 200'); 
+                } = response;
+                status.should.equal(200, 'status = 200');
             })
             .catch((e) => {
                 console.log(e);
             });
-    }); 
+    });
 
-    // after (async () => {
-    //     console.log("[Get]test complete deleting db...")
-    //     return await dbDelete();
-
-    // })
+    after (async () => {
+        console.log("[Get]test complete deleting db...")
+        return await dbDelete();
+    })
 }); 

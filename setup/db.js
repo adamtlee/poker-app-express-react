@@ -1,37 +1,83 @@
 const PlayerController = require('../project/controllers/player.controller'),
-playerController = new PlayerController();
+  //{ createTable } = require("../setup/createTable")
+  playerController = new PlayerController(),
+  { db } = require('../project/constants/constants');
 
-seedData = [
+const AWS = require("aws-sdk");
+AWS.config.update({
+  accessKeyId: 'accessKeyId',
+  secretAccessKey: 'secretAccessKey',
+  region: "eu-west-2",
+  endpoint: "http://localhost:8000"
+});
+const dynamodb = new AWS.DynamoDB();
+
+const seedData = [
   {
-   firstName: "Harry",
-   lastName: "Potter",
-   winning: 345, 
-   country: "USA"
+    firstName: "Harry",
+    lastName: "Potter",
+    winning: 345,
+    country: "USA"
   },
   {
-   firstName: "Ron", 
-   lastName: "Weasly",
-   winning:5280, 
-   country: "Brazil"
+    firstName: "Ron",
+    lastName: "Weasly",
+    winning: 5280,
+    country: "Brazil"
   },
   {
-   firstName: "Albus", 
-   lastName: "Dumbledore",
-   winning: 300, 
-   country: "USA"
+    firstName: "Albus",
+    lastName: "Dumbledore",
+    winning: 300,
+    country: "USA"
   }
-]
- const seedTable = async () => {
-      const players = await seedData.map(async (player) => {
-      const newPlayer = await playerController.create(player)
-      return newPlayer; 
- })
- console.log("player method: ", players);
- return Promise.all(players);
+];
+
+const checkForTable = async (tableName) => {
+  try {
+    const res = await dynamodb.describeTable({ 'TableName': tableName }).promise();
+    return true
+  } catch (e) {
+    return false;
+  }
 }
 
+var params = {
+  TableName: db.tableName,
+  KeySchema: [
+    { AttributeName: "id", KeyType: "HASH" },  //Partition key
+  ],
+  AttributeDefinitions: [
+    { AttributeName: "id", AttributeType: "N" },
+  ],
+  ProvisionedThroughput: {
+    ReadCapacityUnits: 5,
+    WriteCapacityUnits: 5
+  }
+};
+
+const createTable = async () => {
+  if (!checkForTable()) {
+    return await dynamodb.createTable(params).promise();
+  }
+  return {};
+}
+
+const seedTable = async () => {
+
+  await createTable();
+
+  const players = await seedData.map(async (player) => {
+    const newPlayer = await playerController.create(player)
+    return newPlayer;
+  })
+
+  return Promise.all(players);
+}
 
 module.exports = {
-  seedData, 
-  seedTable
+  seedData,
+  seedTable,
+  checkForTable,
+  createTable
 }

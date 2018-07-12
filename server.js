@@ -1,7 +1,9 @@
 // Node modules
 const bodyParser = require('body-parser'),
-      express = require('express');
+  express = require('express'),
+  { routes } = require('./project/constants/constants');
 
+const { createTable } = require("./setup/db");
 
 const app = express();
 // Run the server on port on 3000
@@ -15,12 +17,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const playerRoute = require('./project/app/player.routes');
 
 // Player routes
-app.use('/players', playerRoute);
+app.use(`/${routes.player}`, playerRoute);
 
-// Listen on port 3000
-app.listen(port, () => {
-  console.log(`player app running on ${port}`)
-});
+createTable().then(() => {
+  // Listen on port 3000
+  app.listen(port, () => {
+    console.log(`player app running on ${port}`)
+  });
+}
+)
 
 // Export
 module.exports = app;
