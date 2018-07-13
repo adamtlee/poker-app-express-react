@@ -17,7 +17,7 @@ describe("POST players route", function () {
     before(async () => {
         console.log("[Post]seeding players...");
         seedPlayers = await dbSetup.seedTable();
-   
+
         return seedPlayers;
     });
     // Create a Player Test Case 
@@ -60,7 +60,7 @@ describe("POST players route", function () {
                 status.should.eql(400)
             })
     })
-    after (async () => {
+    after(async () => {
         console.log("[Post]tests complete deleting db...")
         return await dbDelete();
     })

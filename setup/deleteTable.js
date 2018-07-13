@@ -7,16 +7,14 @@ AWS.config.update({
 });
 const dynamodb = new AWS.DynamoDB(),
     { db } = require('../project/constants/constants');
-// Check if the node env is in test
-if (process.env.NODE_ENV === 'test') {
-    dbName = process.env.TEST_PLAYERS_TABLE_NAME;
-}
+
 const deleteTables = async () => {
     try {
+        console.log('deleting ')
         await dynamodb.deleteTable({ 'TableName': db.tableName }).promise();
         await dynamodb.waitFor('tableNotExists', { TableName: db.tableName }).promise();
     } catch (error) {
-        console.log('Failed to delete the table');
+        console.log('Failed to delete the table', error);
     }
 }
 

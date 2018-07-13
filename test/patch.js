@@ -79,8 +79,8 @@ describe("PATCH players route", function () {
         })   
     });
 
-    // after (async () => {
-    //     console.log("[Patch]tests complete deleting db...")
-    //     return await dbDelete();
-    // })
+    after (async () => {
+        console.log("[Patch]tests complete deleting db...")
+        return await dbDelete();
+    })
 });

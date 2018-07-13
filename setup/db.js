@@ -35,7 +35,7 @@ const seedData = [
 
 const checkForTable = async (tableName) => {
   try {
-    const res = await dynamodb.describeTable({ 'TableName': tableName }).promise();
+    await dynamodb.describeTable({ 'TableName': tableName }).promise();
     return true
   } catch (e) {
     return false;
@@ -57,14 +57,22 @@ var params = {
 };
 
 const createTable = async () => {
-  if (!checkForTable()) {
-    return await dynamodb.createTable(params).promise();
+  let tableExists = await checkForTable(db.tableName);
+
+  if (!tableExists) {
+    try {
+      return await dynamodb.createTable(params).promise();
+    } catch (e) {
+      console.log('create table', e)
+    }
   }
+
   return {};
+
+
 }
 
 const seedTable = async () => {
-
   await createTable();
 
   const players = await seedData.map(async (player) => {
